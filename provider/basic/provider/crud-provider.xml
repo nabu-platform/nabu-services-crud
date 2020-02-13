@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<crudProvider>
+    <createService>nabu.services.crud.provider.basic.create</createService>
+    <deleteService>nabu.services.crud.provider.basic.delete</deleteService>
+    <listService>nabu.services.crud.provider.basic.list</listService>
+    <updateService>nabu.services.crud.provider.basic.update</updateService>
+</crudProvider>
