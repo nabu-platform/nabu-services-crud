@@ -1,1 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><node artifactManager="be.nabu.eai.module.services.crud.provider.CRUDProviderManager" created="2020-02-09T16:12:08.558+01:00" lastModified="2020-02-09T16:12:13.842+01:00" leaf="true" version="2"><environmentId>apollo</environmentId><hidden>false</hidden><properties/><references>nabu.services.crud.provider.basic.create</references><references>nabu.services.crud.provider.basic.delete</references><references>nabu.services.crud.provider.basic.list</references><references>nabu.services.crud.provider.basic.update</references></node>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.crud.provider.CRUDProviderManager" created="2020-02-09T16:12:08.558+01:00" lastModified="2020-02-09T16:12:13.842+01:00" leaf="true" version="2">
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties>
+        <property key="crudProvider">default</property>
+    </properties>
+    <references>nabu.services.crud.provider.basic.create</references>
+    <references>nabu.services.crud.provider.basic.delete</references>
+    <references>nabu.services.crud.provider.basic.list</references>
+    <references>nabu.services.crud.provider.basic.update</references>
+</node>
