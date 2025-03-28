@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.glue.GlueServiceManager" created="2025-03-28T14:25:39.489+01:00" lastModified="2025-03-28T17:15:42.006+01:00" leaf="true" version="88">
+    <environmentId>ares</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.utils.reflection.Node.list</references>
+    <references>nabu.utils.reflection.Node.listByType</references>
+    <references>nabu.frameworks.sast.specs.contextualSecurityAnalyzer</references>
+    <references>nabu.web.application.Services.fragment</references>
+</node>

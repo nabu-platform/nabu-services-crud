@@ -1,0 +1,49 @@
+@interface nabu.frameworks.sast.specs.contextualSecurityAnalyzer
+
+string contextId ?= null
+
+results = series()
+
+# let's hope...
+hasRoleHandler = true
+hasPermissionHandler = true
+
+webApplication = be.nabu.eai.repository.EAIResourceRepository.getInstance()/resolve(contextId)
+hasPermissionHandler = webApplication/config/permissionService != null
+hasRoleHandler = webApplication/config/roleService != null
+
+# CRUDs always have a permission, so once you have a permission handler, it is no longer an issue
+if (!hasPermissionHandler)
+	artifacts = nabu.utils.reflection.Node.listByType(type: "be.nabu.eai.module.services.crud.CRUDArtifact")/nodes
+	
+	# crud has multiple services and multiple ways of being included, either you include the artifact as a whole (including all services) or you include one or more services separately
+	
+	for (artifact : artifacts)
+		# get all the services exposed by crud
+		services = nabu.utils.reflection.Node.list(id: artifact/id + ".services")/nodes
+		
+		# check if we include the entire crud
+		includeAll = nabu.web.application.Services.fragment(webApplicationId: contextId, fragmentId: artifact/id)/fragment != null
+		
+		# get the crud, we need to check if you have roles configured
+		resolved = be.nabu.eai.repository.EAIResourceRepository.getInstance()/resolve(artifact/id)
+
+		for (service : services)
+			includeSingle = includeAll || nabu.web.application.Services.fragment(webApplicationId: contextId, fragmentId: service/id)/fragment != null
+			
+			keyword = first(replace(artifact/id + "\.services\.(create|delete|get|list|update).*", "$1", service/id))
+			if (keyword == "get")
+				keyword = "list"
+			
+			applicableRoles = resolved/config[/keyword + "Role"]
+			
+			if (includeSingle && (!hasRoleHandler || size(applicableRoles) == 0))
+				results = merge(results, structure(
+					contextId: contextId,
+					targetId: service/id, 
+					type: "global-access",
+					instance: "global-access",
+					severity: "CRITICAL", 
+					title: "This service is accessible to everyone who can reach the endpoint",
+					suggestion: "Add a permission handler or a role setting to configure who can access this"))
+		
